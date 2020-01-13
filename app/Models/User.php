@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Auth\MustVerifyEmail as MustVerigyEmailTrait;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable;
+    use Notifiable, MustVerigyEmailTrait;
 
     public function gravatar($size = 100) {
 		$hash = md5(strtolower(trim($this->attributes['email'])));
