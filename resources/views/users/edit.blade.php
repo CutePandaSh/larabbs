@@ -11,7 +11,7 @@
       </div>
 
       <div class="card-body">
-        <form action="{{ route('users.update', $user->id) }}" method="POST" accept-charset="UTF-8">
+        <form action="{{ route('users.update', $user->id) }}" method="POST" accept-charset="UTF-8" enctype="multipart/form-data">
           {{ csrf_field() }}
           {{ method_field("PUT")}}
           @include('shared._error')
@@ -28,6 +28,16 @@
           <div class="form-group">
             <label for="introduction-field">个人简介</label>
             <textarea class="form-control" name="introduction" id="introduction-field" rows="3"> {{ old('introduction', $user->introduction) }}</textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="" class="avatar-label">用户头像</label>
+            <input type="file" name="avatar" class="form-control-file">
+
+            @if ($user->avatar)
+            <br>
+            <img class="thumbnail img-responsive" src="{{ $user->avatar }}" width="200" />
+            @endif
           </div>
 
           <div class="well well-sm">
