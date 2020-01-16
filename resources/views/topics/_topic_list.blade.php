@@ -20,9 +20,10 @@
 
           <small class=" media-body meta text-secondary">
 
-            <a class=" text-secondary" href="#" title="{{ $topic->category->name }}">
+            <a class=" text-secondary" href="{{ route('categories.show', $topic->category_id) }}"
+              title="{{ (isset($category))? $category->name:$topic->category->name }}">
               <i class=" far fa-folder"></i>
-              {{ $topic->category->name }}
+              {{ (isset($category))? $category->name:$topic->category->name }}
             </a>
 
             <span> • </span>

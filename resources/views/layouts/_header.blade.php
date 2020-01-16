@@ -12,7 +12,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <!--Left side of Navbar-->
       <ul class="navbar-nav mr-auto">
-
+      <li class=" nav-item {{ active_class(if_route('topics.index')) }}"><a class=" nav-link" href="{{ route('topics.index') }}"> 话题</a></li>
+      @foreach (\App\Models\Category::all() as $category)
+        <li class=" nav-item {{ category_nav_active($category->id) }}">
+          <a class=" nav-link" href="{{ route('categories.show', $category->id) }}">
+            {{ $category->name }}
+          </a>
+        </li>
+      @endforeach
       </ul>
       <!-- Right side of Navbar -->
       <ul class="navbar-nav navbar-right">
