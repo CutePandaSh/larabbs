@@ -40,7 +40,9 @@
             <a class="dropdown-item" id="logout" href="#">
               <form action="{{ route('logout') }}" method="POST">
                 {{ csrf_field() }}
-                <button class="btn btn-danger btn-block" type="submit" name="button">退出</button>
+                <button class="btn btn-danger btn-block" type="submit" name="button" onclick="return confirm('你确定要退出么？');">
+                  退出
+                </button>
               </form>
             </a>
           </div>
