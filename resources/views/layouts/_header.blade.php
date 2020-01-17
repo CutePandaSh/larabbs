@@ -13,7 +13,7 @@
       <!--Left side of Navbar-->
       <ul class="navbar-nav mr-auto">
       <li class=" nav-item {{ active_class(if_route('topics.index')) }}"><a class=" nav-link" href="{{ route('topics.index') }}"> 话题</a></li>
-      @foreach (\App\Models\Category::all() as $category)
+      @foreach (app(\App\Models\Category::class)->all() as $category)
         <li class=" nav-item {{ category_nav_active($category->id) }}">
           <a class=" nav-link" href="{{ route('categories.show', $category->id) }}">
             {{ $category->name }}
@@ -28,6 +28,12 @@
         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">登录</a> </li>
         <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">注册</a> </li>
         @else
+        <li class=" nav-item">
+          <a class="nav-link mt-1 mr-3 font-weight-bold" href="{{ route('topics.create') }}">
+            <i class="fa fa-plus"></i>
+          </a>
+        </li>
+
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <img src="{{ (Auth::user()->avatar)?Auth::user()->avatar:Auth::user()->gravatar() }}" class="img-responsive img-circle" width="30px" height="30px">
