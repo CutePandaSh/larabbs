@@ -28,6 +28,7 @@ class UsersTableSeeder extends Seeder
         $user = factory(User::class)->times(10)->make()
                         ->each(function ($user, $index) use ($faker, $avatars) {
                             $user->avatar = $faker->randomElement($avatars);
+                            $user->password = bcrypt('123456');
                         });
         $user_array = $user->makeVisible(['password', 'remember_token'])->toArray();
 
