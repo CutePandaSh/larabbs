@@ -17846,3 +17846,12 @@ body {
   max-width: 100%;
 }
 
+.topic-reply a {
+  color: inherit;
+}
+
+.topic-reply .meta {
+  font-size: 0.9em;
+  color: #b3b3b3;
+}
+
