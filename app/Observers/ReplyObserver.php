@@ -4,7 +4,7 @@ namespace App\Observers;
 
 use App\Models\Reply;
 use App\Notifications\TopicReplied;
-
+use Illuminate\Support\Carbon;
 // creating, created, updating, updated, saving,
 // saved,  deleting, deleted, restoring, restored
 
@@ -25,7 +25,10 @@ class ReplyObserver
     {
         $reply_count = $reply->topic->replies->count();
         // $reply->topic->save();
-        \DB::table('topics')->where(['id' => $reply->topic_id])->update(['reply_count' => $reply_count]);
+        \DB::table('topics')->where(['id' => $reply->topic_id])->update([
+            'reply_count' => $reply_count,
+            'updated_at' => Carbon::now(),
+        ]);
 
         $reply->topic->user->notify(new TopicReplied($reply));
 
@@ -33,6 +36,11 @@ class ReplyObserver
 
     public function deleted(Reply $reply)
     {
-        $reply->topic->updateReplyCount();
+        $reply_count = $reply->topic->replies->count();
+        \DB::table('topics')->where(['id' => $reply->topic_id])->update([
+            'reply_count' => $reply_count,
+            'updated_at' => Carbon::now(),
+        ]);
+        // $reply->topic->updateReplyCount();
     }
 }

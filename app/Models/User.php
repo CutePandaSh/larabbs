@@ -95,9 +95,9 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function setAvatarAttribute($value)
     {
         if (! \Str::startsWith($value, 'http')) {
-            $path = config('app.url') . "/uploads/images/avatars/$value";
+            $value = config('app.url') . "/uploads/images/avatars/$value";
         }
-        $this->attributes['avatar'] = $path;
+        $this->attributes['avatar'] = $value;
 
     }
 }
