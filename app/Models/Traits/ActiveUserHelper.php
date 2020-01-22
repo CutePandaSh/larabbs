@@ -54,9 +54,10 @@ trait ActiveUserHelper
        foreach ($reply_users as $value) {
             $reply_score = $value->reply_count * $this->reply_weight;
             if (isset($this->users[$value->user_id])) {
-                $this->users[$value->user_id] += $reply_score;
+                $this->users[$value->user_id]['score'] += $reply_score;
+
             } else {
-                $this->users[$value->user_id] = $reply_score;
+                $this->users[$value->user_id]['score'] = $reply_score;
             }
        }
 
