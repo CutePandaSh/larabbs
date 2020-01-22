@@ -69,6 +69,15 @@ return [
         ]
     ],
 
+    'rules' => [
+        'password' => 'required|min:6',
+    ],
+
+    'messages' => [
+        'password.required' => '用户密码不能为空!',
+        'password.min' => '用户密码至少六个字符',
+    ],
+
     'filters' => [
         'id' => [
             'title' => '用户 ID'
