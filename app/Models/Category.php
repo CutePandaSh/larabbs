@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Cache;
 
 class Category extends Model
 {
@@ -13,4 +14,14 @@ class Category extends Model
         'name',
         'description',
     ];
+
+    public $cache_key = 'header_categories';
+    protected $cache_expire_in_seconds = 1440 * 60;
+
+    public function getAllCached()
+    {
+        return Cache::remember($this->cache_key, $this->cache_expire_in_seconds, function () {
+            return $this->all();
+        });
+    }
 }
