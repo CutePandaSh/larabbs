@@ -1,6 +1,53 @@
 <?php
 // use Str;
 
+function get_db_config()
+{
+    if (getenv('IS_IN_HEROKU')) {
+
+        $url_pgsql = parse_url(getenv('DATABASE_URL'));
+
+        $url_redis = parse_url(getenv('REDIS_URL'));
+
+        return $db_config = [
+            'db' => [
+                'connection' => 'pgsql',
+                'host'       => $url_pgsql['host'],
+                'database'   => substr($url_pgsql['path'], 1),
+                'username'   => $url_pgsql['user'],
+                'password'   => $url_pgsql['pass'],
+                'port'       => $url_pgsql['port'],
+            ],
+            'redis' => [
+                'client'   => 'predis',
+                'host'     => $url_redis['host'],
+                'port'     => $url_redis['port'],
+                'username' => $url_redis['user'],
+                'password' => $url_redis['pass']
+            ],
+        ];
+
+    } else {
+        return $db_config = [
+            'db' => [
+                'connection' => env('DB_CONNECTION', 'mysql'),
+                'host'       => env('DB_HOST', 'localhost'),
+                'database'   => env('DB_DATABASE', 'forge'),
+                'username'   => env('DB_USERNAME', 'forge'),
+                'password'   => env('DB_PASSWORD', ''),
+                'port'       => env('DB_PORT', 3306)
+            ],
+            'redis' => [
+                'client' => env('REDIS_CLIENT', 'phpredis'),
+                'host' => env('REDIS_HOST', '127.0.0.1'),
+                'port' => env('REDIS_PORT', 6379),
+                'username' => null,
+                'password' => env('REDIS_PASSWORD', null),
+            ],
+        ];
+    }
+}
+
 function route_class()
 {
     return str_replace('.', '-', Route::currentRouteName());
