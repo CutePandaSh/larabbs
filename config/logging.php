@@ -42,8 +42,8 @@ return [
         ],
 
         'single' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/laravel.log'),
+            'driver' => getenv('IS_IN_HEROKU') ? 'errorlog' : 'single',
+            'path' => getenv('IS_IN_HEROKU') ? null : storage_path('logs/laravel.log'),
             'level' => 'debug',
         ],
 
