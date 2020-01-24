@@ -19,4 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function() {
     Route::post('verificationCodes', 'VerificationCodesController@store')->name('verificationCodes.store');
+    Route::post('users', 'UsersController@store')->name('users.store');
 });
