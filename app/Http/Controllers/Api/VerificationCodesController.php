@@ -2,16 +2,27 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Overtrue\EasySms\EasySms;
 use App\Http\Requests\Api\VerificationCodeRequest;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class VerificationCodesController extends Controller
 {
     public function store(VerificationCodeRequest $request, EasySms $easySms)
     {
-        $phone = $request->phone;
+        $captchaData = \Cache::get($request->captcha_key);
+        if (!$captchaData) {
+            abort(403, '图片验证码已过期');
+        }
+
+        if (!hash_equals($captchaData['captcha'], strtolower($request->captcha_code))) {
+            \Cache::forget($request->captcha_key);
+            throw new AuthorizationException('验证码错误');
+        }
+
+        $phone = $captchaData['phone'];
+
         if (app()->environment('production')){
 
             $code = str_pad(random_int(0, 9999), 4 , 0, STR_PAD_LEFT);
