@@ -19,7 +19,7 @@ class UsersController extends Controller
         }
 
         if (! hash_equals($verifyData['code'], $request->verification_code)) {
-            throw new AuthenticationException('验证码错误');
+            throw new AuthenticationException('验证码错误！');
         }
 
         $user = User::create([

@@ -25,7 +25,7 @@ class CaptchasController extends Controller
             'captcha_key' => $key,
             'expired_at' => $expiredAt->toDateTimeString(),
             'captcha_image_content' => $captcha->inline(),
-            'captcha_code' => app()->environment('production') ? null : $captcha->getPhrase(),
+            'captcha_code' => ! app()->isLocal() ? null : $captcha->getPhrase(),
             // 'captcha_url' => config('app.url') . "/$folder/$key.jpg",
 
         ];
