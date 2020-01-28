@@ -49,6 +49,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function() {
                 Route::post('topics/{topic}/replies', 'RepliesController@store')->name('topics.replies.store');
                 Route::delete('topics/{topic}/replies/{reply}', 'RepliesController@destroy')->name('topics.replies.destroy');
                 Route::get('notifications', 'NotificationsController@index')->name('notifications.index');
+                Route::get('notifications/stats', 'NotificationsController@stats')->name('notifications.stats');
             });
 
         });
