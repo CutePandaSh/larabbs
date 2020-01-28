@@ -40,6 +40,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function() {
             Route::get('users/{user}/topics', 'TopicsController@userIndex')->name('user.topics.index');
             Route::get('topics/{topic}/replies', 'RepliesController@index')->name('topics.replies.index');
             Route::get('users/{user}/replies', 'RepliesController@userIndex')->name('users.replies.index');
+            Route::get('links', 'LinksController@index')->name('links.index');
 
             Route::middleware('auth:api')->group(function() {
                 Route::get('user', 'UsersController@me')->name('user.show');
