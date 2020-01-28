@@ -51,6 +51,7 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function() {
                 Route::get('notifications', 'NotificationsController@index')->name('notifications.index');
                 Route::get('notifications/stats', 'NotificationsController@stats')->name('notifications.stats');
                 Route::patch('user/notifications/read', 'NotificationsController@read')->name('user.notifications.read');
+                Route::get('user/permissions', 'PermissionsController@index')->name('user.permissions.index');
             });
 
         });
